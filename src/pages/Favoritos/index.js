@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import {toast} from 'react-toastify';
 import './favoritos.css';
 
 export default function Favoritos() {
@@ -16,7 +17,7 @@ export default function Favoritos() {
      return (item.id !== id)
    })
 
-   alert("Filme apagado dos favoritos com sucesso!")
+   toast.success("Filme apagado dos favoritos com sucesso!");
 
    setFilmes(filtroFilmes)
    localStorage.setItem("filmes", JSON.stringify(filtroFilmes));
@@ -25,6 +26,9 @@ export default function Favoritos() {
  return (
    <div id="meus-filmes">
        <h1>Meus Filmes</h1>
+
+        {filmes.length === 0 && <span>Você não possui nenhum filme salvo :(</span>}
+
        <ul>
         {filmes.map((filme) => {
           return(

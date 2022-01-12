@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import api from '../../services/api';
+import { toast } from 'react-toastify';
 import './filme-info.css';
 
 export default function Filme() {
@@ -15,6 +16,7 @@ export default function Filme() {
 
         if(response.data.length === 0){
             //Voltar para a tela inicial
+            toast.error("Filme não encontrado, redirecionando você para a home...");
             history.replace('/');
         }
 
@@ -35,13 +37,13 @@ export default function Filme() {
     //Retorne true ou false
     const hasFilme = filmesSalvos.some((filmes) => filmes.id === filme.id);
     if(hasFilme){
-        alert('Você já possui esse filme salvo!');
+        toast.error('Você já possui esse filme salvo!');
         return;
     }
 
     filmesSalvos.push(filme);
     localStorage.setItem("filmes", JSON.stringify(filmesSalvos));
-    alert("Filme salvo com sucesso!");
+    toast.success("Filme salvo com sucesso!");
 }
 
  if(loading){

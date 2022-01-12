@@ -5,15 +5,25 @@ import './home.css';
 
 export default function Home() {
  const [filmes, setFilmes] = useState([]);
+ const [loading, setLoading] = useState(true);
 
  useEffect(() => {
     async function loadFilmes(){
       const response = await api.get('r-api/?api=filmes');
       setFilmes(response.data);
+      setLoading(false);
     }
 
     loadFilmes()
  }, [])
+
+ if(loading){
+   return(
+      <div className="carregando">
+        <h1>Carregando filmes...</h1>
+      </div>
+   )
+ }
 
  return (
    <div className="container">
